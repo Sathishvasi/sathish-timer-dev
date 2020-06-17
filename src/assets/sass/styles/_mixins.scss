@@ -1,0 +1,80 @@
+/* Pixels to REM conversion */
+$baseFontSize: 16;
+
+@function rem($pixels, $context: $baseFontSize) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+
+  @return $pixels / $context * 1rem;
+}
+
+@mixin block-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-center-v {
+  display: flex;
+  align-items: center;
+}
+
+@mixin transition {
+  transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+}
+
+@mixin transition-fast {
+  transition: all 0.15s;
+  -moz-transition: all 0.15s;
+  -webkit-transition: all 0.15s;
+}
+
+@mixin hover-fade {
+  @include transition;
+
+  &:hover {
+    opacity: 0.8;
+    color: $blue;
+  }
+}
+
+@mixin fadein {
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  animation: fadein 0.3s;
+}
+
+@mixin editor-styles {
+  font-size: rem(16);
+
+  img {
+    max-width: 35%;
+    display: block;
+  }
+
+  ul,
+  li,
+  img {
+    margin: rem(10) 0;
+  }
+}

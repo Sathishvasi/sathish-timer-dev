@@ -1,0 +1,44 @@
+h1 {
+  font-size: rem(40);
+  line-height: rem(58);
+  font-weight: bold;
+}
+
+h2 {
+  font-size: rem(32);
+  line-height: rem(46);
+  font-weight: bold;
+}
+
+h3 {
+  font-size: rem(28);
+  line-height: rem(35);
+  font-weight: bold;
+}
+
+h4 {
+  font-size: rem(24);
+  line-height: rem(30);
+  font-weight: bold;
+}
+
+h5 {
+  font-size: rem(20);
+  line-height: rem(24);
+  font-weight: bold;
+}
+
+h6 {
+  font-size: rem(16);
+  line-height: rem(20);
+  font-weight: bold;
+}
+
+p {
+  font-size: rem(16);
+  line-height: rem(24);
+  &.sub{
+    font-size: rem(14);
+    color: $black4;
+  }
+}
