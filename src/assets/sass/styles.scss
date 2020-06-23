@@ -4,4 +4,11 @@
 @import "styles/typography";
 
 //pages & components
+@import "styles/timer";
 
+
+body{
+    background-image: url('../img/background.jpg');
+    background-size: cover;
+    background-color: black;
+}

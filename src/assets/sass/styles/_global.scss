@@ -6,7 +6,7 @@ h4,
 h5,
 h6,
 input {
-  font-family: "Verdana", sans-serif !important;
+  font-family: 'Nunito Sans', sans-serif;
   -webkit-font-smoothing: always;
 }
 
@@ -30,7 +30,7 @@ a {
 
 button,
 .button {
-  @include hover-fade;
+  // @include hover-fade;
   outline: none;
   cursor: pointer;
 
@@ -147,4 +147,24 @@ button,
 
 .w-auto {
   width: auto !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
