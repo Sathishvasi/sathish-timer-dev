@@ -44,6 +44,20 @@
     flex-direction: column;
     justify-content: center;
 
+    &__input {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .navbar__timer {
+      text-align: center;
+      font-size: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .start-timer {
       font-family: "Nunito Sans", sans-serif;
       margin-top: 30px;
@@ -94,8 +108,10 @@
     }
 
     &-content {
-      align-items: center;
-      margin-top: 10px;
+      &__input {
+        align-items: center;
+      }
+      margin-top: 15px;
     }
   }
 }
@@ -165,19 +181,19 @@ $gray: #9b9b9b;
 }
 
 .corner-ribbon {
-    width: 175px;
-    text-align: center;
-    line-height: 36px;
-    color: #f0f0f0;
-    position: fixed;
-    top: 26px;
-    right: -48px;
-    left: auto;
-    transform: rotate(45deg);
-    background: #39d;
-    font-weight: bold;
-    letter-spacing: 5px;
-    font-size: 10px;
-    box-shadow: 2px 3px 10px #0000005e;
-    text-decoration: none;
+  width: 175px;
+  text-align: center;
+  line-height: 36px;
+  color: #f0f0f0;
+  position: fixed;
+  top: 26px;
+  right: -48px;
+  left: auto;
+  transform: rotate(45deg);
+  background: #39d;
+  font-weight: bold;
+  letter-spacing: 5px;
+  font-size: 10px;
+  box-shadow: 2px 3px 10px #0000005e;
+  text-decoration: none;
 }

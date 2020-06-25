@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavLink, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 const CLOCKUNIT = 59;
 
@@ -18,9 +19,10 @@ class Timer extends Component {
     this.handleResult = this.handleResult.bind(this);
     this.timer = this.timer.bind(this);
     this.pad = this.pad.bind(this);
-  }
 
-  componentDidUpdate() {}
+    console.log(this.props.demoVal);
+    
+  }
 
   componentDidMount() {
     // Time calculation
@@ -141,7 +143,7 @@ class Timer extends Component {
         // Calculated current time with API time
         // localObj.time_taken =
         //   pad(rminutes - (parseInt(this.state.minutes) + 1)) + "." + pad(sec);
-        alert(this.pad(rminutes - (parseInt(this.state.minutes) + 1)) + "." + this.pad(sec))
+        alert(`Timer running time`+this.pad(rminutes - (parseInt(this.state.minutes) + 1)) + "." + this.pad(sec))
       }
     }
   }
@@ -168,6 +170,7 @@ class Timer extends Component {
         {/* {!hideTimer && ( */}
         <div className="navbar__timer">
           <span>{hours + ":" + minutes + ":" + seconds}</span>
+          <button className="start-timer" onClick={this.handleResult}>STOP TIMER</button>
         </div>
         {/* )} */}
       </div>
@@ -175,4 +178,10 @@ class Timer extends Component {
   }
 }
 
-export default Timer;
+function mapStateToProps(state) {
+  return {
+    demoVal: state.demoVal,
+  };
+}
+
+export default connect(mapStateToProps)(Timer);
