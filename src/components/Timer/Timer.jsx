@@ -10,7 +10,9 @@ class Timer extends Component {
 
     this.state = {
       seconds: null,
-      showLoading: null,
+      showResult: false,
+      resultMinutes: '',
+      resultSeconds: '',
       minutes: null,
       hours: null,
       interval: null,
@@ -20,21 +22,30 @@ class Timer extends Component {
     this.timer = this.timer.bind(this);
     this.pad = this.pad.bind(this);
 
-    console.log(this.props.demoVal);
+    console.log(this.props.timerValue);
     
   }
 
   componentDidMount() {
     // Time calculation
-    let time, hours, rhours, minutes, rminutes;
-    time = 2;
+    let time, hours, rhours, minutes, rminutes, chours, crhours, cminutes, crminutes;
+    time = this.props.timerValue;
     if (time > 0) {
       hours = time / 60;
       rhours = Math.floor(hours) <= 0 ? 0 : Math.floor(hours) - 1;
       minutes = (hours - rhours) * 60;
       rminutes = Math.round(minutes) <= 0 ? 0 : Math.round(minutes) - 1;
 
-      console.log(rhours, rminutes);
+      // Condition to get exceeded minutes
+      if(rminutes > 59){
+        chours = rminutes / 60;
+        crhours = Math.floor(chours);
+        cminutes = (chours - crhours) * 60;
+        crminutes = Math.round(cminutes);
+
+        rhours = rhours + crhours;
+        rminutes = crminutes;
+      }
 
       // Time values intialization
       this.setState({
@@ -112,21 +123,19 @@ class Timer extends Component {
   }
 
   handleResult(e) {
-    // Enable loader
-    this.setState({ showLoading: true });
-
     // Stops timer
     clearInterval(this.state.interval);
 
     // API time calc
-    const APITime = 2;
-    let hours, rhours, minutes, rminutes;
+    const APITime = this.props.timerValue;
+    let hours, rhours, minutes, rminutes, resultMinutes, resultSeconds;
     hours = APITime / 60;
     rhours = Math.floor(hours) <= 0 ? 0 : Math.floor(hours);
     minutes = (hours - rhours) * 60;
     rminutes = Math.round(minutes) <= 0 ? 0 : Math.round(minutes);
 
-    rminutes = rhours >= 1 ? 60 : rminutes;
+    // rminutes = rhours >= 1 ? 60 : rminutes;
+    rminutes = rminutes === 0 ? 60 : rminutes;
 
     // POST API call of all questions
     let localObj = JSON.parse(localStorage.getItem("questions"));
@@ -137,42 +146,51 @@ class Timer extends Component {
         parseInt(this.state.minutes) +
         "." +
         sec;
+        
       if (time_taken === "0.0") {
-        // localObj.time_taken = rhours + rminutes + ".0";
+        // timer = rhours + rminutes + ".0";
+        resultMinutes = rhours + rminutes;
+        resultSeconds = 0;
+
       } else {
         // Calculated current time with API time
-        // localObj.time_taken =
-        //   pad(rminutes - (parseInt(this.state.minutes) + 1)) + "." + pad(sec);
-        alert(`Timer running time`+this.pad(rminutes - (parseInt(this.state.minutes) + 1)) + "." + this.pad(sec))
+        // timer = this.pad(rminutes - (parseInt(this.state.minutes) + 1)) + "." + this.pad(sec);
+        resultMinutes = this.pad(rminutes - (parseInt(this.state.minutes) + 1));
+        resultSeconds = this.pad(sec)
       }
+      // alert(`Timer running time: `+timer)
+      this.setState({
+        showResult: true,
+        resultMinutes: resultMinutes,
+        resultSeconds: resultSeconds
+      })
     }
   }
 
   render() {
-    const { hours, minutes, seconds, hideTimer, showLoading } = this.state;
+    const { hours, minutes, seconds, showResult, resultMinutes, resultSeconds } = this.state;
 
     let publishButton;
 
-    // if (this.state.redirectResult) {
-    //   // Clearing time interval
-    //   clearInterval(this.state.interval);
-    //   // Clearing student selected questions data
-    //   localStorage.removeItem("questions");
-    //   this.setState({
-    //     redirectResult: false,
-    //     resultPage: "student-result",
-    //   });
-    //   return <Redirect to={`/${this.state.testId}/student/results`} />;
-    // }
-
     return (
       <div className="nav-wrapper">
-        {/* {!hideTimer && ( */}
-        <div className="navbar__timer">
-          <span>{hours + ":" + minutes + ":" + seconds}</span>
-          <button className="start-timer" onClick={this.handleResult}>STOP TIMER</button>
-        </div>
-        {/* )} */}
+          {!showResult &&
+          <div className="navbar__timer">
+            <span>{hours + ":" + minutes + ":" + seconds}</span>
+            <button className="start-timer" onClick={this.handleResult}>STOP TIMER</button>
+          </div>
+          }
+
+          {showResult &&
+          <div className="timer-result">
+            <h4>Time Run through</h4>
+            <div className="timer-result__detail">
+              <span><b>{resultMinutes}</b> Minutes</span>
+              <span><b>{resultSeconds}</b> Seconds</span>
+            </div>
+            <button className="start-timer">HOME</button>
+          </div>
+          }
       </div>
     );
   }
@@ -180,7 +198,7 @@ class Timer extends Component {
 
 function mapStateToProps(state) {
   return {
-    demoVal: state.demoVal,
+    timerValue: state.timerValue,
   };
 }
 

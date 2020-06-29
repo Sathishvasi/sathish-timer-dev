@@ -1,13 +1,14 @@
 const initialState = {
   demoVal: 'sathish',
+  timerValue: ''
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case 'SET_VALUE':
+    case 'SET_TIMER_VALUE':
       return {
         ...state,
-        demoVal: action.value.demoVal,
+        timerValue: action.value.timerValue,
       };
     default:
       return state;
