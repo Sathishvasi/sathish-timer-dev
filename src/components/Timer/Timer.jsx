@@ -202,7 +202,7 @@ class Timer extends Component {
               <span><b>{resultSeconds}</b> Seconds</span>
             </div>
             {/* <button className="start-timer">HOME</button> */}
-            <NavLink onClick={this.goHome} to={`/`} className="start-timer">
+            <NavLink onClick={this.goHome} to={'/sathish-timer'} className="start-timer">
                 RESET TIMER
             </NavLink>
           </div>

@@ -49,7 +49,7 @@ class FormInput extends Component {
     const { validatorMessage, validator, timerValue, redirectTimer } = this.state;
 
     if(redirectTimer){
-      return <Redirect to={"/timer"} />
+      return <Redirect to={"/sathish-timer/timer"} />
     }
 
     return (

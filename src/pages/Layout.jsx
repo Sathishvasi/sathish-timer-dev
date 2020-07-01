@@ -17,7 +17,7 @@ class Layout extends Component {
 
   render() {
     const {  } = this.state;
-    let bannerImage = !this.props.bannerImageFinal ? bannerImg : bannerImgFinal;
+    // let bannerImage = !this.props.bannerImageFinal ? bannerImg : bannerImgFinal;
     return (
       <div className="timer fadein">
         <a href="https://github.com/Sathishvasi/sathish-timer" className="corner-ribbon" target="_blank">Github</a>
@@ -27,22 +27,25 @@ class Layout extends Component {
         </div>
         <div className="timer-card">
           <div className="timer-banner">
-            <img src={bannerImage} className="fadein" alt="Banner"/>
+            <img src={bannerImg} className="fadein" alt="Banner"/> 
+            {/* {!this.props.bannerImageFinal ? <img src={bannerImg} className="fadein" alt="Banner"/> : <img src={bannerImgFinal} className="fadein" alt="Banner"/>} */}
           </div>
           <div className="timer-content">
-            <BrowserRouter basename="/">
+            <BrowserRouter>
+              <Switch>
                 <Route
                   name="Layout"
                   exact
-                  path="/"
+                  path="/sathish-timer"
                   render={(props) => <FormInput {...props} />}
                 />
                 <Route
                   name="Timer Page"
-                  path="/timer"
+                  path="/sathish-timer/timer"
                   render={(props) => <Timer {...props} />}
                 />
-                {/* <Redirect exact from="/" to="/"></Redirect> */}
+              </Switch>
+                <Redirect exact from="/" to="/sathish-timer"></Redirect>
             </BrowserRouter>
           </div>
         </div>
