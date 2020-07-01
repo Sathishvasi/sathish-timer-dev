@@ -1,6 +1,7 @@
 const initialState = {
   demoVal: 'sathish',
-  timerValue: ''
+  timerValue: '',
+  bannerImageFinal: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -9,7 +10,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         timerValue: action.value.timerValue,
-      };
+      }
+    case 'SET_IMAGE':
+      return {
+        ...state,
+        bannerImageFinal: action.value.setImage,
+      }
     default:
       return state;
   }

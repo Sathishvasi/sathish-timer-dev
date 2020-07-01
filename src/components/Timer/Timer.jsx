@@ -21,6 +21,7 @@ class Timer extends Component {
     this.handleResult = this.handleResult.bind(this);
     this.timer = this.timer.bind(this);
     this.pad = this.pad.bind(this);
+    this.goHome = this.goHome.bind(this);
 
     console.log(this.props.timerValue);
     
@@ -85,11 +86,18 @@ class Timer extends Component {
       );
 
       // Condition to clear timer in other pages
-      if (window.location.pathname.split("/")[3] === "") {
+      if (window.location.pathname === "/") {
         clearInterval(interval);
       }
     }, 1000);
     this.setState({ interval: interval });
+  }
+
+  goHome(){
+    localStorage.removeItem('currentTime');
+    this.props.setImage({
+      setImage: false
+    });
   }
 
   timer() {
@@ -165,6 +173,11 @@ class Timer extends Component {
         resultSeconds: resultSeconds
       })
     }
+
+    // Image change
+    this.props.setImage({
+      setImage: true
+    });
   }
 
   render() {
@@ -183,12 +196,15 @@ class Timer extends Component {
 
           {showResult &&
           <div className="timer-result">
-            <h4>Time Run through</h4>
+            <h4>Your Time Summary</h4>
             <div className="timer-result__detail">
               <span><b>{resultMinutes}</b> Minutes</span>
               <span><b>{resultSeconds}</b> Seconds</span>
             </div>
-            <button className="start-timer">HOME</button>
+            {/* <button className="start-timer">HOME</button> */}
+            <NavLink onClick={this.goHome} to={`/`} className="start-timer">
+                RESET TIMER
+            </NavLink>
           </div>
           }
       </div>
@@ -202,4 +218,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Timer);
+function mapDispatchToProps(dispatch) {
+  return {
+      setImage: (value) => dispatch({ type: "SET_IMAGE", value }),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);

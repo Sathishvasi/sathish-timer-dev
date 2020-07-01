@@ -6,7 +6,7 @@
 
   &-card {
     width: 60%;
-    background-color: white;
+    background-color: #e4e4e4;
     border-radius: 10px;
     color: black;
     display: flex;
@@ -77,6 +77,7 @@
         display: flex;
         justify-content: space-evenly;
         width: 100%;
+        margin-bottom: 2rem;
         b {
           font-size: 30px;
           color: #1773b1;
@@ -158,6 +159,9 @@
         align-items: center;
       }
       margin-top: 15px;
+      .timer-result__detail{
+        margin: 0;
+      }
     }
 
     .timer-result {
